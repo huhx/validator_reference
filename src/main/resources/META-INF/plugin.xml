@@ -23,6 +23,8 @@
   <depends>com.intellij.modules.lang</depends>
   <depends>com.intellij.modules.java</depends>
 
+  <!-- Extension points defined by the plugin.
+     Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
     <defaultLiveTemplates file="/liveTemplates/Validator.xml"/>
     <liveTemplateContext implementation="com.huhx.reference.template.ValidatorLiveTemplateContext"/>
@@ -36,9 +38,9 @@
     <codeInsight.lineMarkerProvider
       language="JAVA"
       implementationClass="com.huhx.reference.linemarker.ValidatorLineMarkerProvider"/>
+    <codeInsight.lineMarkerProvider
+      language="JAVA"
+      implementationClass="com.huhx.reference.linemarker.MethodLineMarkerProvider"/>
   </extensions>
-
-  <!-- Extension points defined by the plugin.
-       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
 
 </idea-plugin>
