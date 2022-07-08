@@ -1,5 +1,7 @@
 package com.huhx.reference.linemarker
 
+import com.huhx.reference.constant.Constant.ANNOTATION_NAME
+import com.huhx.reference.extension.hasAnotationValue
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
@@ -34,11 +36,8 @@ class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
         }
     }
 
-    private fun findProperties(project: Project, referenceName: String): List<PsiElement> {
-        val methodName = "@ValidationMethod(%s)".format(referenceName)
+    private fun findProperties(project: Project, value: String): List<PsiElement> {
         val psiClasses = PsiShortNamesCache.getInstance(project).getClassesByName(className, JavaFilesSearchScope(project))
-        return psiClasses[0].methods.filter {
-            it.text.contains(methodName)
-        }
+        return psiClasses[0].methods.filter { it.hasAnotationValue(ANNOTATION_NAME, value) }
     }
 }
