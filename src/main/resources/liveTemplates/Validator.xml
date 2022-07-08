@@ -1,0 +1,27 @@
+<templateSet group="Validator">
+  <template
+    name="@mv"
+    value="@MethodValidate(code = $CODE$, message = $MESSAGE$, method = $METHOD$)"
+    description="Add MethodValidate"
+    toReformat="false"
+    toShortenFQNames="false">
+    <variable
+      name="CODE"
+      expression=""
+      defaultValue=""
+      alwaysStopAt="true"/>
+    <variable
+      name="MESSAGE"
+      expression=""
+      defaultValue=""
+      alwaysStopAt="true"/>
+    <variable
+      name="METHOD"
+      expression=""
+      defaultValue=""
+      alwaysStopAt="true"/>
+    <context>
+      <option name="VALIDATOR" value="true"/>
+    </context>
+  </template>
+</templateSet>

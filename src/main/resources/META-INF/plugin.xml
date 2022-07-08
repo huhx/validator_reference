@@ -23,6 +23,11 @@
   <depends>com.intellij.modules.lang</depends>
   <depends>com.intellij.modules.java</depends>
 
+  <extensions defaultExtensionNs="com.intellij">
+    <defaultLiveTemplates file="/liveTemplates/Validator.xml"/>
+    <liveTemplateContext implementation="com.huhx.reference.template.ValidatorLiveTemplateContext"/>
+  </extensions>
+
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
 
