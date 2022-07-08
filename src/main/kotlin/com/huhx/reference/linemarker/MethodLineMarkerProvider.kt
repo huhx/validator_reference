@@ -24,10 +24,10 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
         }.forEach { psiMethod ->
             val attributeValue = psiMethod.findAttributeValue("value")
             attributeValue?.text?.let { filedName ->
-                val findReferences = findReferences(element, filedName)
-                if (findReferences.isNotEmpty()) {
+                val references = findReferences(element, filedName).filter { it != attributeValue }
+                if (references.isNotEmpty()) {
                     val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Right)
-                        .setTargets(findReferences.filter { it != attributeValue })
+                        .setTargets(references)
                         .setTooltipText("Navigate to Usage")
                         .createLineMarkerInfo(attributeValue)
                     result.add(lineMarkerInfo)
