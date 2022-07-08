@@ -32,6 +32,10 @@
       parentId="tools"
       displayName="MethodNavigator"
       instance="com.huhx.reference.ApplicationSettingsConfigurable"/>
+
+    <codeInsight.lineMarkerProvider
+      language="JAVA"
+      implementationClass="com.huhx.reference.linemarker.ValidatorLineMarkerProvider"/>
   </extensions>
 
   <!-- Extension points defined by the plugin.
