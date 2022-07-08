@@ -13,7 +13,7 @@ import com.intellij.psi.search.PsiShortNamesCache
 import com.huhx.reference.setting.AppSettingsState
 
 class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
-    var className: String = AppSettingsState.getInstance().className
+    private var className: String = AppSettingsState.getInstance().className
 
     override fun collectNavigationMarkers(element: PsiElement, result: MutableCollection<in RelatedItemLineMarkerInfo<*>>) {
         if (element !is PsiReferenceExpression || element.parent !is PsiNameValuePair) {
