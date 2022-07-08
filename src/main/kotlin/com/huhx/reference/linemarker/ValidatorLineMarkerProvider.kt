@@ -10,7 +10,7 @@ import com.intellij.psi.PsiNameValuePair
 import com.intellij.psi.PsiReferenceExpression
 import com.intellij.psi.impl.search.JavaFilesSearchScope
 import com.intellij.psi.search.PsiShortNamesCache
-import com.huhx.reference.AppSettingsState
+import com.huhx.reference.setting.AppSettingsState
 
 class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
     var className: String = AppSettingsState.getInstance().className

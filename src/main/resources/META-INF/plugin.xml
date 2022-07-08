@@ -27,11 +27,11 @@
     <defaultLiveTemplates file="/liveTemplates/Validator.xml"/>
     <liveTemplateContext implementation="com.huhx.reference.template.ValidatorLiveTemplateContext"/>
 
-    <applicationService serviceImplementation="com.huhx.reference.AppSettingsState"/>
+    <applicationService serviceImplementation="com.huhx.reference.setting.AppSettingsState"/>
     <applicationConfigurable
       parentId="tools"
       displayName="MethodNavigator"
-      instance="com.huhx.reference.ApplicationSettingsConfigurable"/>
+      instance="com.huhx.reference.setting.ApplicationSettingsConfigurable"/>
 
     <codeInsight.lineMarkerProvider
       language="JAVA"

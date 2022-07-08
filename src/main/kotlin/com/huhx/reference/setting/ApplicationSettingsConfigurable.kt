@@ -1,4 +1,4 @@
-package com.huhx.reference
+package com.huhx.reference.setting
 
 import com.intellij.openapi.options.Configurable
 import com.intellij.ui.layout.CCFlags

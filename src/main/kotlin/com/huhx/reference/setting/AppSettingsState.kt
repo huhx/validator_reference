@@ -1,10 +1,10 @@
-package com.huhx.reference
+package com.huhx.reference.setting
 
 import com.intellij.openapi.components.*
 import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(
-    name = "com.huhx.reference.AppSettingsState",
+    name = "com.huhx.reference.setting.AppSettingsState",
     storages = [Storage("AppSettingsState.xml")]
 )
 class AppSettingsState : PersistentStateComponent<AppSettingsState> {
