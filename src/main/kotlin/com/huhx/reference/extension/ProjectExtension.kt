@@ -11,5 +11,5 @@ import com.intellij.psi.search.PsiShortNamesCache
 fun Project.findPsiElement(value: String): List<PsiElement> {
     val className: String = AppSettingsState.getInstance().className
     val psiClasses = PsiShortNamesCache.getInstance(this).getClassesByName(className, JavaFilesSearchScope(this))
-    return psiClasses[0].methods.filter { it.hasAnotationValue(Constant.ANNOTATION_NAME, value) }
+    return psiClasses[0].methods.filter { it.hasAnotationValue(Constant.VALIDATION_METHOD_NAME, value) }
 }

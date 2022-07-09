@@ -1,5 +1,6 @@
 package com.huhx.reference.action
 
+import com.huhx.reference.constant.Constant.ANNOTATION_NAME
 import com.huhx.reference.extension.findPsiElement
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -19,7 +20,7 @@ class MethodAction : AnAction() {
         val offset = editor.caretModel.offset
 
         val element = PsiManager.getInstance(project).findFile(virtualFile)?.findElementAt(offset)
-        if (element !is PsiIdentifier || element.text != "MethodValidate") {
+        if (element !is PsiIdentifier || element.text != ANNOTATION_NAME) {
             return
         }
         val attributeValue = (element.parent.parent as PsiAnnotation).findAttributeValue("method")?.lastChild
