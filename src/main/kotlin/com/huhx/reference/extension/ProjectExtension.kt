@@ -15,3 +15,9 @@ fun Project.findPsiElement(value: String): List<PsiElement> {
         it.hasAnotationValue(Constant.VALIDATION_METHOD_NAME, value)
     }
 }
+
+fun Project.hasReference(value: String): Boolean {
+    val className: String = AppSettingsState.getInstance().className
+    val psiClass = PsiShortNamesCache.getInstance(this).getClassesByName(className, JavaFilesSearchScope(this)).first()
+    return psiClass.findFieldByName(value.uppercase(), false) != null
+}

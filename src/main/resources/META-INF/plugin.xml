@@ -41,6 +41,11 @@
     <codeInsight.lineMarkerProvider
       language="JAVA"
       implementationClass="com.huhx.reference.linemarker.MethodLineMarkerProvider"/>
+    <intentionAction>
+      <className>com.huhx.reference.action.MethodValidateIntentionAction</className>
+      <category>SDK intentions</category>
+    </intentionAction>
+
   </extensions>
 
   <actions>
