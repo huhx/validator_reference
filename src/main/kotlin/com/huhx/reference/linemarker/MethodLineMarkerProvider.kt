@@ -2,6 +2,7 @@ package com.huhx.reference.linemarker
 
 import com.huhx.reference.constant.Constant.ANNOTATION_NAME
 import com.huhx.reference.extension.hasAnotation
+import com.huhx.reference.setting.AppSettingsState
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
@@ -13,7 +14,7 @@ import com.intellij.psi.search.searches.ReferencesSearch
 class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
 
     override fun collectNavigationMarkers(element: PsiElement, result: MutableCollection<in RelatedItemLineMarkerInfo<*>>) {
-        if (element !is PsiClass || element.name != "MethodValidator") {
+        if (element !is PsiClass || element.name != AppSettingsState.getInstance().className) {
             return
         }
 

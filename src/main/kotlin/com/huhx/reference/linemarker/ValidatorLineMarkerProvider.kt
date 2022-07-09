@@ -27,7 +27,7 @@ class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
         if (properties.isNotEmpty()) {
             val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Left)
                 .setTargets(properties)
-                .setTooltipText("Navigate to MethodValidate")
+                .setTooltipText("Navigate shift ctrl M")
                 .createLineMarkerInfo(element)
             result.add(lineMarkerInfo)
         }
