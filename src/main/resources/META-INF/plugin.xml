@@ -43,4 +43,13 @@
       implementationClass="com.huhx.reference.linemarker.MethodLineMarkerProvider"/>
   </extensions>
 
+  <actions>
+    <action
+      id="com.huhx.reference.action.MethodAction"
+      class="com.huhx.reference.action.MethodAction"
+      text="MethodJump"
+      description="Jump to related Validator Method">
+      <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl M"/>
+    </action>
+  </actions>
 </idea-plugin>
