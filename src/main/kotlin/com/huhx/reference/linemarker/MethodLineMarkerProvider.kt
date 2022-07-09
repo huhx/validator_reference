@@ -39,6 +39,8 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
 
     private fun findReferences(psiClass: PsiClass, filedName: String): List<PsiElement> {
         val psiElement = psiClass.findFieldByName(filedName, false)
-        return ReferencesSearch.search(psiElement!!).map { it.element }
+        return ReferencesSearch.search(psiElement!!).map {
+            it.element
+        }
     }
 }

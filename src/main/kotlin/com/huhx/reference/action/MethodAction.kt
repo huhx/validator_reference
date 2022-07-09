@@ -9,6 +9,7 @@ import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.psi.PsiAnnotation
 import com.intellij.psi.PsiIdentifier
 import com.intellij.psi.PsiManager
+import com.intellij.psi.util.parentOfType
 import com.intellij.util.PsiNavigateUtil
 
 class MethodAction : AnAction() {
@@ -23,7 +24,7 @@ class MethodAction : AnAction() {
         if (element !is PsiIdentifier || element.text != ANNOTATION_NAME) {
             return
         }
-        val attributeValue = (element.parent.parent as PsiAnnotation).findAttributeValue("method")?.lastChild
+        val attributeValue = element.parentOfType<PsiAnnotation>()?.findAttributeValue("method")?.lastChild
         attributeValue?.let {
             val psiElements = project.findPsiElement(attributeValue.text)
             PsiNavigateUtil.navigate(psiElements.first(), true)
