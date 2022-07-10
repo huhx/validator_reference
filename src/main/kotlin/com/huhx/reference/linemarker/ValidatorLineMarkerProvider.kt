@@ -23,13 +23,15 @@ class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
             return
         }
 
-        val properties = element.project.findPsiElement(element.referenceName!!)
-        if (properties.isNotEmpty()) {
-            val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Left)
-                .setTargets(properties)
-                .setTooltipText("Navigate ⌃⇧M")
-                .createLineMarkerInfo(element)
-            result.add(lineMarkerInfo)
+        element.referenceName?.let {
+            val properties = element.project.findPsiElement(it)
+            if (properties.isNotEmpty()) {
+                val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Left)
+                    .setTargets(properties)
+                    .setTooltipText("Navigate ⌃⇧M")
+                    .createLineMarkerInfo(element)
+                result.add(lineMarkerInfo)
+            }
         }
     }
 }
