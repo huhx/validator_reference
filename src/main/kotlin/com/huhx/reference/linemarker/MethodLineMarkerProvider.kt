@@ -17,9 +17,11 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
             return
         }
 
-        element.methods.mapNotNull {
+        val psiAnnotationList = element.methods.mapNotNull {
             it.modifierList.findAnnotation(VALIDATION_METHOD_NAME)
-        }.forEach { psiMethod ->
+        }
+
+        psiAnnotationList.forEach { psiMethod ->
             val attributeValue = psiMethod.findAttributeValue("value")
             attributeValue?.text?.let { filedName ->
                 val references = findReferences(element, filedName).filter { it != attributeValue }
@@ -35,10 +37,7 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
     }
 
     private fun findReferences(psiClass: PsiClass, filedName: String): List<PsiElement> {
-        val psiElement = psiClass.findFieldByName(filedName, false)
-        if (psiElement != null) {
-            return ReferencesSearch.search(psiElement).map { it.element }
-        }
-        return listOf()
+        val psiElement = psiClass.findFieldByName(filedName, false) ?: return listOf()
+        return ReferencesSearch.search(psiElement).map { it.element }
     }
 }

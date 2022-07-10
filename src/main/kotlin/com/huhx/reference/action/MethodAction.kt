@@ -15,11 +15,11 @@ import com.intellij.util.PsiNavigateUtil
 class MethodAction : AnAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
-        val project = event.project!!
-        val editor = FileEditorManager.getInstance(project).selectedTextEditor!!
-        val virtualFile = FileDocumentManager.getInstance().getFile(editor.document)!!
-        val offset = editor.caretModel.offset
+        val project = event.project ?: return
+        val editor = FileEditorManager.getInstance(project).selectedTextEditor ?: return
+        val virtualFile = FileDocumentManager.getInstance().getFile(editor.document) ?: return
 
+        val offset = editor.caretModel.offset
         val element = PsiManager.getInstance(project).findFile(virtualFile)?.findElementAt(offset)
         if (element !is PsiIdentifier || element.text != ANNOTATION_NAME) {
             return
