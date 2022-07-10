@@ -1,7 +1,6 @@
 package com.huhx.reference.linemarker
 
 import com.huhx.reference.constant.Constant.VALIDATION_METHOD_NAME
-import com.huhx.reference.extension.hasAnotation
 import com.huhx.reference.setting.AppSettingsState
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider
@@ -18,10 +17,8 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
             return
         }
 
-        element.methods.filter {
-            it.hasAnotation(VALIDATION_METHOD_NAME)
-        }.mapNotNull {
-            it.modifierList.findAnnotation(VALIDATION_METHOD_NAME)!!
+        element.methods.mapNotNull {
+            it.modifierList.findAnnotation(VALIDATION_METHOD_NAME)
         }.forEach { psiMethod ->
             val attributeValue = psiMethod.findAttributeValue("value")
             attributeValue?.text?.let { filedName ->
