@@ -5,10 +5,10 @@
 
   <!-- Public plugin name should be written in Title Case.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-  <name>Validator_Reference</name>
+  <name>Validator Reference</name>
 
   <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-  <vendor email="gohuhx@gmail.com" url="https://www.yourcompany.com">TW</vendor>
+  <vendor email="gohuhx@gmail.com" url="https://github.com/huhx">huhx</vendor>
 
   <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -54,7 +54,7 @@
       class="com.huhx.reference.action.MethodAction"
       text="MethodJump"
       description="Jump to related Validator Method">
-      <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl M"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl M" second-keystroke="shift meta M"/>
     </action>
   </actions>
 </idea-plugin>
