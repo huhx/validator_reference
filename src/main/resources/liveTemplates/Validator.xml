@@ -1,6 +1,6 @@
 <templateSet group="Validator">
   <template
-    name="@mv"
+    name="mv"
     value="@MethodValidate(code = $CODE$, message = $MESSAGE$, method = $METHOD$)"
     description="Add MethodValidate"
     toReformat="false"
