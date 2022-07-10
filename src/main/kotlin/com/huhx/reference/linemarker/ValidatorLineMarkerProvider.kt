@@ -1,6 +1,7 @@
 package com.huhx.reference.linemarker
 
 import com.huhx.reference.extension.findPsiElement
+import com.huhx.reference.setting.AppSettingsState
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
@@ -8,7 +9,6 @@ import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameValuePair
 import com.intellij.psi.PsiReferenceExpression
-import com.huhx.reference.setting.AppSettingsState
 
 class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
 
@@ -27,7 +27,7 @@ class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
         if (properties.isNotEmpty()) {
             val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Left)
                 .setTargets(properties)
-                .setTooltipText("Navigate shift ctrl M")
+                .setTooltipText("Navigate ⌃⇧M")
                 .createLineMarkerInfo(element)
             result.add(lineMarkerInfo)
         }
