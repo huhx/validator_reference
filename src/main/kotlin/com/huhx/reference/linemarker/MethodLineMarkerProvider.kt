@@ -8,6 +8,7 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReferenceExpression
 import com.intellij.psi.search.searches.ReferencesSearch
 
 class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
@@ -24,7 +25,9 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
         psiAnnotationList.forEach { psiMethod ->
             val attributeValue = psiMethod.findAttributeValue("value")
             attributeValue?.text?.let { filedName ->
-                val references = findReferences(element, filedName).filter { it != attributeValue }
+                val references = findReferences(element, filedName).filter {
+                    it != attributeValue && it is PsiReferenceExpression
+                }
                 if (references.isNotEmpty()) {
                     val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Right)
                         .setTargets(references)
