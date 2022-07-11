@@ -19,7 +19,7 @@ fun Project.hasReference(value: String): Boolean {
     return getPsiClasses().first().findFieldByName(value.uppercase(), false) != null
 }
 
-private fun Project.getPsiClasses(): Array<out PsiClass> {
+fun Project.getPsiClasses(): Array<out PsiClass> {
     val className: String = AppSettingsState.getInstance().className
     return PsiShortNamesCache.getInstance(this).getClassesByName(className, JavaFilesSearchScope(this))
 }

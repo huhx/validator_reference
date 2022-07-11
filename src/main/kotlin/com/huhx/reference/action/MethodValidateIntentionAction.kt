@@ -1,15 +1,19 @@
 package com.huhx.reference.action
 
+import com.huhx.reference.constant.Constant.VALIDATION_METHOD_NAME
+import com.huhx.reference.extension.getPsiClasses
+import com.huhx.reference.extension.hasAnotation
 import com.huhx.reference.extension.hasReference
 import com.huhx.reference.setting.AppSettingsState
 import com.intellij.codeInsight.intention.IntentionAction
 import com.intellij.codeInsight.intention.PsiElementBaseIntentionAction
-import com.intellij.ide.BrowserUtil
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+import com.intellij.psi.JavaPsiFacade
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiIdentifier
 import com.intellij.psi.PsiReferenceExpression
+import java.util.*
 
 class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), IntentionAction {
     private val className = AppSettingsState.getInstance().className
@@ -36,7 +40,27 @@ class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), Intention
     }
 
     override fun invoke(project: Project, editor: Editor?, element: PsiElement) {
-        BrowserUtil.browse("https://stackoverflow.com/search?q=love")
+        val name = element.text
+        val fieldString = """
+            public static final String %s = "%s";
+        """.trimIndent().format(name, name.replace("_", " ").lowercase(Locale.getDefault()))
+        val methodString = """
+              @ValidationMethod(%s)
+              public static boolean %s(%s value) {
+                // todo
+                return false;
+              }
+        """.trimIndent().format(name, name.replace("_", "").lowercase(Locale.getDefault()), "String")
+
+        val psiClass = project.getPsiClasses().first()
+        val newFiled = JavaPsiFacade.getElementFactory(project).createFieldFromText(fieldString, psiClass)
+        val newMethod = JavaPsiFacade.getElementFactory(project).createMethodFromText(methodString, psiClass)
+
+        val lastFiled = psiClass.fields.last()
+        val lastMethod = psiClass.methods.last { it.hasAnotation(VALIDATION_METHOD_NAME) }
+
+        psiClass.addAfter(newFiled, lastFiled)
+        psiClass.addAfter(newMethod, lastMethod)
     }
 
 }
