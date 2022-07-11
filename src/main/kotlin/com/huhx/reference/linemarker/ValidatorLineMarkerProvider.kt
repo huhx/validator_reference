@@ -12,7 +12,7 @@ import com.intellij.psi.PsiElement
 class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
 
     override fun collectNavigationMarkers(element: PsiElement, result: MutableCollection<in RelatedItemLineMarkerInfo<*>>) {
-        if (element !is PsiAnnotation || !element.nameReferenceElement?.qualifiedName.equals(METHOD_VALIDATION_NAME)) {
+        if (element !is PsiAnnotation || !hasMethodAnnotation(element)) {
             return
         }
         val referenceName = element.findAttributeValue("method")?.lastChild?.text ?: return
@@ -25,5 +25,9 @@ class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
                 .createLineMarkerInfo(element)
             result.add(lineMarkerInfo)
         }
+    }
+
+    private fun hasMethodAnnotation(element: PsiAnnotation): Boolean {
+        return element.nameReferenceElement?.qualifiedName.equals(METHOD_VALIDATION_NAME)
     }
 }
