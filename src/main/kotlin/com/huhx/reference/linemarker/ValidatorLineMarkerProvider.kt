@@ -15,14 +15,15 @@ class ValidatorLineMarkerProvider : RelatedItemLineMarkerProvider() {
         if (element !is PsiAnnotation || !hasMethodAnnotation(element)) {
             return
         }
-        val referenceName = element.findAttributeValue("method")?.lastChild?.text ?: return
+        val referenceElement = element.findAttributeValue("method")?.lastChild
+        val referenceName = referenceElement?.text ?: return
 
         val properties = element.project.findPsiElement(referenceName)
         if (properties.isNotEmpty()) {
             val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Left)
                 .setTargets(properties)
                 .setTooltipText("Navigate ⌃⇧M")
-                .createLineMarkerInfo(element)
+                .createLineMarkerInfo(referenceElement)
             result.add(lineMarkerInfo)
         }
     }

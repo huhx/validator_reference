@@ -8,7 +8,7 @@ import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiReferenceExpression
+import com.intellij.psi.PsiIdentifier
 import com.intellij.psi.search.searches.ReferencesSearch
 
 class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
@@ -23,10 +23,10 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
         }
 
         psiAnnotationList.forEach { psiMethod ->
-            val attributeValue = psiMethod.findAttributeValue("value")
-            attributeValue?.text?.let { filedName ->
+            val attributeValue = psiMethod.findAttributeValue("value")?.lastChild ?: return
+            attributeValue.text?.let { filedName ->
                 val references = findReferences(element, filedName).filter {
-                    it != attributeValue && it is PsiReferenceExpression
+                    it != attributeValue && it is PsiIdentifier
                 }
                 if (references.isNotEmpty()) {
                     val lineMarkerInfo = NavigationGutterIconBuilder.create(AllIcons.Chooser.Right)
@@ -41,6 +41,6 @@ class MethodLineMarkerProvider : RelatedItemLineMarkerProvider() {
 
     private fun findReferences(psiClass: PsiClass, filedName: String): List<PsiElement> {
         val psiElement = psiClass.findFieldByName(filedName, false) ?: return listOf()
-        return ReferencesSearch.search(psiElement).map { it.element }
+        return ReferencesSearch.search(psiElement).map { it.element.lastChild }
     }
 }
