@@ -13,11 +13,11 @@ import com.intellij.psi.PsiReferenceExpression
 class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), IntentionAction {
 
     override fun getText(): String {
-        return "Create realted filed and method"
+        return "Create related filed and method"
     }
 
     override fun getFamilyName(): String {
-        return "ConditionalOperatorIntention"
+        return "Create related filed and method"
     }
 
     override fun isAvailable(project: Project, editor: Editor?, element: PsiElement): Boolean {
