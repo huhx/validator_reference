@@ -7,7 +7,6 @@ import com.huhx.reference.extension.hasAnotation
 import com.huhx.reference.setting.AppSettingsState
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
-import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.project.Project
 import com.intellij.psi.JavaPsiFacade
 import com.intellij.util.PsiNavigateUtil
@@ -30,20 +29,18 @@ class MethodQuickFix(private val string: String, private val filedName: String) 
         val name = element.text.uppercase(Locale.getDefault())
 
         if (!StringUtils.isAllUpperCase(element.text)) {
-            WriteCommandAction.runWriteCommandAction(project) {
-                element.replace(elementFactory.createIdentifier(name))
-            }
+            element.replace(elementFactory.createIdentifier(name))
         }
+
         val psiClass = project.getPsiClasses().first()
         val newFiled = elementFactory.createFieldFromText(getFiledString(name), psiClass)
-        val newMethod = elementFactory.createMethodFromText(getMethodString(string, name), psiClass)
-
         psiClass.addAfter(newFiled, psiClass.fields.last())
+
+        val newMethod = elementFactory.createMethodFromText(getMethodString(string, name), psiClass)
         psiClass.addAfter(newMethod, psiClass.methods.last { it.hasAnotation(Constant.VALIDATION_METHOD_NAME) })
 
         val last = psiClass.methods.last { it.hasAnotation(Constant.VALIDATION_METHOD_NAME) }
         PsiNavigateUtil.navigate(last, true)
-
     }
 
     private fun getFiledString(filedName: String): String {

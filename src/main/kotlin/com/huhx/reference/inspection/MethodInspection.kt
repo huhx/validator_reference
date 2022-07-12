@@ -23,8 +23,8 @@ class MethodInspection : AbstractBaseJavaLocalInspectionTool(), HighPriorityActi
 
             override fun visitAnnotation(annotation: PsiAnnotation) {
                 super.visitAnnotation(annotation)
-                val qualifiedName: String? = annotation.qualifiedName
-                if (METHOD_VALIDATION_NAME == qualifiedName) {
+
+                if (METHOD_VALIDATION_NAME == annotation.qualifiedName) {
                     val parentElement = annotation.parent.parent
                     if (parentElement !is PsiField && parentElement !is PsiClass) return
                     val name = annotation.findAttributeValue("method")?.lastChild ?: return
