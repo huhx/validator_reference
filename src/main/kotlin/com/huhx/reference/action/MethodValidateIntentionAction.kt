@@ -23,7 +23,7 @@ class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), Intention
     private val className = AppSettingsState.getInstance().className
 
     override fun getText(): String {
-        return "Create related filed and method in $className"
+        return "Create related filed and method in '$className'"
     }
 
     override fun getFamilyName(): String {
@@ -61,7 +61,7 @@ class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), Intention
         psiClass.addAfter(newFiled, psiClass.fields.last())
         psiClass.addAfter(newMethod, psiClass.methods.last { it.hasAnotation(VALIDATION_METHOD_NAME) })
 
-        val last = psiClass.methods.last() { it.hasAnotation(VALIDATION_METHOD_NAME) }
+        val last = psiClass.methods.last { it.hasAnotation(VALIDATION_METHOD_NAME) }
         PsiNavigateUtil.navigate(last, true)
     }
 
