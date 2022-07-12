@@ -46,6 +46,21 @@
       <category>SDK intentions</category>
     </intentionAction>
 
+
+    <inspectionToolProvider
+      implementation="com.huhx.reference.inspection.MethodInspectionProvider">
+    </inspectionToolProvider>
+
+    <localInspection
+      language="JAVA"
+      groupPath="Java"
+      implementationClass="com.huhx.reference.inspection.MethodInspection"
+      groupBundle="messages.InspectionsBundle"
+      groupKey="group.names.compiler.issues"
+      groupName="Compiler issues"
+      displayName="Create validation field and mehtod"
+      enabledByDefault="true"
+      shortName="ValidationInspection"/>
   </extensions>
 
   <actions>
