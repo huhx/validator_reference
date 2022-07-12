@@ -49,33 +49,36 @@ class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), Intention
             editor.document.replaceString(element.textRange.startOffset, element.textRange.endOffset, name)
         }
 
-        val fieldString = """
-            public static final String %s = "%s";
-        """.trimIndent().format(name, name.replace("_", " ").lowercase(Locale.getDefault()))
-        val methodString = """
-              @ValidationMethod(%s)
-              public static boolean %s(%s value) {
-                // todo
-                return false;
-              }
-        """.trimIndent().format(name, toCamelCase(name), "String")
-
         val psiClass = project.getPsiClasses().first()
-        val newFiled = JavaPsiFacade.getElementFactory(project).createFieldFromText(fieldString, psiClass)
-        val newMethod = JavaPsiFacade.getElementFactory(project).createMethodFromText(methodString, psiClass)
+        val elementFactory = JavaPsiFacade.getElementFactory(project)
+        val newFiled = elementFactory.createFieldFromText(getFiledString(name), psiClass)
+        val newMethod = elementFactory.createMethodFromText(getMethodString(name), psiClass)
 
-        val lastFiled = psiClass.fields.last()
-        val lastMethod = psiClass.methods.last { it.hasAnotation(VALIDATION_METHOD_NAME) }
-
-        psiClass.addAfter(newFiled, lastFiled)
-        psiClass.addAfter(newMethod, lastMethod)
+        psiClass.addAfter(newFiled, psiClass.fields.last())
+        psiClass.addAfter(newMethod, psiClass.methods.last { it.hasAnotation(VALIDATION_METHOD_NAME) })
 
         val last = psiClass.methods.last() { it.hasAnotation(VALIDATION_METHOD_NAME) }
         PsiNavigateUtil.navigate(last, true)
     }
 
+    private fun getFiledString(filedName: String): String {
+        val filedValue = filedName.replace("_", " ").lowercase(Locale.getDefault())
+        return """
+            public static final String %s = "%s";
+        """.trimIndent().format(filedName, filedValue)
+    }
+
+    private fun getMethodString(name: String): String {
+        return """
+                      @ValidationMethod(%s)
+                      public static boolean %s(%s value) {
+                        // todo
+                        return false;
+                      }
+                """.trimIndent().format(name, toCamelCase(name), "String")
+    }
+
     private fun toCamelCase(string: String): String {
         return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, string)
     }
-
 }
