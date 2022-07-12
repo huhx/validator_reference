@@ -16,6 +16,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiIdentifier
 import com.intellij.psi.PsiReferenceExpression
 import com.intellij.util.PsiNavigateUtil
+import org.apache.commons.lang3.StringUtils
 import java.util.*
 
 class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), IntentionAction {
@@ -44,9 +45,12 @@ class MethodValidateIntentionAction : PsiElementBaseIntentionAction(), Intention
 
     override fun invoke(project: Project, editor: Editor?, element: PsiElement) {
         if (editor == null) return
+
         val name = element.text.uppercase(Locale.getDefault())
-        WriteCommandAction.runWriteCommandAction(project) {
-            editor.document.replaceString(element.textRange.startOffset, element.textRange.endOffset, name)
+        if (!StringUtils.isAllUpperCase(element.text)) {
+            WriteCommandAction.runWriteCommandAction(project) {
+                editor.document.replaceString(element.textRange.startOffset, element.textRange.endOffset, name)
+            }
         }
 
         val psiClass = project.getPsiClasses().first()
