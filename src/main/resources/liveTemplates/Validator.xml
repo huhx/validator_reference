@@ -24,4 +24,37 @@
       <option name="VALIDATOR" value="true"/>
     </context>
   </template>
+
+  <template
+    name="lec"
+    value="@LoggableEvent(applicationTier = CONTROLLER, action = $ACTION$)"
+    description="Add LoggableEvent in Controller"
+    toReformat="false"
+    toShortenFQNames="false">
+    <variable
+      name="ACTION"
+      expression=""
+      defaultValue=""
+      alwaysStopAt="true"/>
+    <context>
+      <option name="VALIDATOR" value="true"/>
+    </context>
+  </template>
+
+  <template
+    name="les"
+    value="@LoggableEvent(applicationTier = SERVICE, action = $ACTION$)"
+    description="Add LoggableEvent in Service"
+    toReformat="false"
+    toShortenFQNames="false">
+    <variable
+      name="ACTION"
+      expression=""
+      defaultValue=""
+      alwaysStopAt="true"/>
+    <context>
+      <option name="VALIDATOR" value="true"/>
+    </context>
+  </template>
+
 </templateSet>
