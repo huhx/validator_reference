@@ -1,6 +1,8 @@
 package com.huhx.reference.inspection
 
-import com.google.common.base.CaseFormat
+import com.huhx.reference.extension.firstLowerCase
+import com.huhx.reference.extension.isPrimitive
+import com.huhx.reference.extension.toCamelCase
 import java.util.*
 
 class MethodAndFiled(private val type: String, val name: String) {
@@ -13,16 +15,14 @@ class MethodAndFiled(private val type: String, val name: String) {
     }
 
     fun getMethod(): String {
+        val parameterName = if (type.isPrimitive()) "value" else type.firstLowerCase()
         return """
               @ValidationMethod(%s)
-              public static boolean %s(%s value) {
+              public static boolean %s(%s %s) {
                 // todo
                 return false;
               }
-              """.trimIndent().format(name, toCamelCase(name), type)
+              """.trimIndent().format(name, name.toCamelCase(), type, parameterName)
     }
 
-    private fun toCamelCase(string: String): String {
-        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, string)
-    }
 }
