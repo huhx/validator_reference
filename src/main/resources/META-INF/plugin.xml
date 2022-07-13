@@ -62,7 +62,7 @@
     <action
       id="com.huhx.reference.action.MethodAction"
       class="com.huhx.reference.action.MethodAction"
-      text="MethodJump"
+      text="Validator Navigation"
       description="Jump to related Validator Method">
       <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl M" second-keystroke="shift meta M"/>
     </action>
