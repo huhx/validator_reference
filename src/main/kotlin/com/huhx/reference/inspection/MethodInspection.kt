@@ -27,15 +27,18 @@ class MethodInspection : AbstractBaseJavaLocalInspectionTool(), HighPriorityActi
                 if (METHOD_VALIDATION_NAME == annotation.qualifiedName) {
                     val parentElement = annotation.parent.parent
                     if (parentElement !is PsiField && parentElement !is PsiClass) return
-                    val name = annotation.findAttributeValue("method")?.lastChild ?: return
-                    if (annotation.project.hasReference(name.text)) return
+                    val attributeElement = annotation.findAttributeValue("method")?.lastChild ?: return
+
+                    val text = attributeElement.text
+                    if (text.isEmpty()) return
+                    if (annotation.project.hasReference(text)) return
 
                     val typeString = getTypeFromElement(parentElement)
                     holder.registerProblem(
-                        name,
+                        attributeElement,
                         "Create validation filed and method",
                         ProblemHighlightType.ERROR,
-                        MethodQuickFix(typeString, name.text)
+                        MethodQuickFix(typeString, text)
                     )
                 }
             }
