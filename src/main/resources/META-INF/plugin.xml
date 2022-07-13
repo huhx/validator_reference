@@ -56,6 +56,8 @@
       displayName="Create validation field and mehtod"
       enabledByDefault="true"
       shortName="ValidationInspection"/>
+
+    <renamePsiElementProcessor implementation="com.huhx.reference.rename.RenameValidateFieldProcessor" order="first"/>
   </extensions>
 
   <actions>
