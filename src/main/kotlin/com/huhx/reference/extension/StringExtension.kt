@@ -15,5 +15,5 @@ fun String.toCamelCase(): String {
 }
 
 fun String.firstLowerCase(): String {
-    return this.replaceFirstChar { it.lowercase(Locale.getDefault()) }
+    return replaceFirstChar { it.lowercase(Locale.getDefault()) }
 }
